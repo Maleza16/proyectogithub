@@ -1,0 +1,13 @@
+{
+  "argentina": { "nombre": "Argentina" },
+  "china": { "nombre": "China" },
+  "brazil": { "nombre": "Brasil" },
+  "france": { "nombre": "Francia" },
+  "united_states": { "nombre": "Estados Unidos" },
+  "mexico": { "nombre": "México" },
+  "spain": { "nombre": "España" },
+  "germany": { "nombre": "Alemania" },
+  "russia": { "nombre": "Rusia" },
+  "japan": { "nombre": "Japón" },
+  "canada": { "nombre": "Canadá" }
+}

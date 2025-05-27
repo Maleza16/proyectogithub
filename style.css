@@ -1,0 +1,253 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: 'Montserrat', Arial, sans-serif;
+  overflow: hidden;
+}
+body {
+  width: 100vw;
+  height: 100vh;
+  background: #131a20;
+  position: relative;
+  min-height: 100vh;
+}
+.bg-image {
+  position: absolute;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  background: url('https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=1200&q=80') center center/cover no-repeat;
+  filter: blur(2.5px) brightness(0.4);
+  z-index: 1;
+}
+.overlay {
+  position: absolute;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  background: linear-gradient(120deg, #16202a99 70%, #1d2938ef 100%);
+  z-index: 2;
+}
+.login-container {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  background: rgba(255,255,255,0.09);
+  border-radius: 18px;
+  box-shadow: 0 8px 40px 0 #132a4a99, 0 2px 10px 0 #0004;
+  padding: 44px 38px 36px 38px;
+  min-width: 340px;
+  max-width: 92vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  backdrop-filter: blur(3.5px);
+  border: 1.7px solid #24344b88;
+}
+.login-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 2.7em;
+  color: #e4ba56;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  margin-bottom: 7px;
+  text-shadow: 0 2px 8px #0f1c2b88;
+  user-select: none;
+}
+.login-logo span {
+  color: #f7e7ac;
+  font-size: 0.46em;
+  font-weight: 400;
+  margin-left: 8px;
+  letter-spacing: 1.5px;
+  text-shadow: none;
+}
+.login-sub {
+  font-size: 1.13em;
+  font-weight: 400;
+  color: #e6e6e6;
+  text-align: center;
+  margin-bottom: 22px;
+  letter-spacing: 0.2px;
+  user-select: none;
+  text-shadow: 0 2px 12px #0008;
+}
+.login-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-top: 8px;
+}
+.login-form input[type="text"] {
+  padding: 14px 14px 14px 42px;
+  font-size: 1.08em;
+  border: 1.7px solid #c2c8d0;
+  border-radius: 9px;
+  outline: none;
+  background: #fafdffcc url("https://cdn-icons-png.flaticon.com/512/149/149071.png") no-repeat 10px center/22px 22px;
+  color: #16202a;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: 'Montserrat', Arial, sans-serif;
+}
+.login-form input[type="text"]:focus {
+  border-color: #e4ba56;
+  box-shadow: 0 2px 12px #e4ba5644;
+}
+.login-form button {
+  background: linear-gradient(90deg, #e4ba56 50%, #d1a13a 95%);
+  color: #1a1a1a;
+  font-weight: bold;
+  font-size: 1.17em;
+  border: none;
+  border-radius: 8px;
+  padding: 13px 0;
+  box-shadow: 0 2px 8px #0003;
+  cursor: pointer;
+  transition: filter 0.2s, box-shadow 0.2s, background 0.2s;
+  margin-top: 3px;
+  letter-spacing: 1.3px;
+}
+.login-form button:hover {
+  filter: brightness(1.06);
+  background: linear-gradient(90deg, #f7e7ac 30%, #e4ba56 100%);
+  color: #2a2414;
+}
+.login-form small {
+  color: #bda96e;
+  margin-top: 3px;
+  font-size: 0.99em;
+  text-align: center;
+  display: block;
+}
+.footer {
+  position: absolute;
+  bottom: 20px; left: 0; width: 100vw;
+  z-index: 4;
+  color: #b0b4b7;
+  font-size: 1em;
+  text-align: center;
+  text-shadow: 0 1px 6px #0f1822;
+  letter-spacing: 1px;
+  user-select: none;
+}
+#gameArea {
+  display: none;
+  width: 100vw;
+  min-height: 100vh;
+  background: #12191f;
+  position: absolute;
+  top: 0; left: 0;
+  z-index: 10;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+  height: 100vh;
+}
+#mainNav {
+  width: 100vw;
+  background: #18202b;
+  color: #e4ba56;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 3px 14px #0004;
+  padding: 0 18px;
+  height: 58px;
+  min-height: 58px;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+  position: relative;
+}
+#mainNav .nav-logo {
+  font-size: 1.2em;
+  font-weight: 700;
+  letter-spacing: 1.8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-right: 28px;
+  color: #e4ba56;
+  text-shadow: 0 2px 8px #0005;
+}
+#mainNav .nav-btn {
+  background: #22304a;
+  color: #e4ba56;
+  border: none;
+  border-radius: 7px;
+  padding: 8px 28px;
+  margin: 0 5px;
+  cursor: pointer;
+  font-size: 1.08em;
+  font-weight: 500;
+  transition: background 0.15s, color 0.15s;
+  flex-shrink: 0;
+}
+#mainNav .nav-btn:hover {
+  background: #e4ba56;
+  color: #22304a;
+}
+#mainNav .nav-logout {
+  background: #8e2d2d;
+  color: #fff;
+  margin-left: 0;
+}
+#mainNav .nav-logout:hover {
+  background: #d72f2f;
+  color: #fff;
+}
+#mainNav .nav-user {
+  font-size: 1.02em;
+  color: #e4ba56;
+  background: #1115;
+  border-radius: 8px;
+  padding: 7px 14px;
+  letter-spacing: 1px;
+  margin-left: 12px;
+  margin-right: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 180px;
+}
+#mainNav .nav-actions {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  gap: 5px;
+  min-width: 0;
+}
+#vistaMapa, #vistaPerfil {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 5vw;
+}
+.perfil-box {
+  background: #232a37;
+  color: #fff;
+  max-width: 420px;
+  margin: 36px auto;
+  border-radius: 14px;
+  box-shadow: 0 2px 16px #0006;
+  padding: 32px 28px;
+}
+.perfil-box h2, .perfil-box h4 {
+  color: #e4ba56;
+  margin-bottom: 7px;
+}
+.perfil-box ul {
+  list-style-type: disc;
+  margin: 0 0 16px 20px;
+  padding: 0;
+}
+.perfil-box li {
+  color: #fff;
+  font-size: 1.09em;
+  margin-bottom: 4px;
+}
+@media (max-width: 720px) {
+  .perfil-box { max-width: 99vw; padding: 18px 4vw; }
+  #mainNav { font-size: 0.95em; }
+}

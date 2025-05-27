@@ -1,0 +1,16 @@
+{
+  "name": "rr-clone",
+  "version": "1.0.0",
+  "description": "Clon jugable de Rival Regions para navegador web.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "Maleza16 y Copilot",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.21.2",
+    "multer": "^2.0.0",
+    "socket.io": "^4.8.1"
+  }
+}

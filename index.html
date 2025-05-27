@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Conquista LATAM - Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:700,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="bg-image"></div>
+  <div class="overlay"></div>
+  <div class="login-container">
+    <div class="login-logo">
+      <img src="https://cdn-icons-png.flaticon.com/512/657/657406.png" alt="logo" style="height:40px;width:40px;vertical-align:middle;">
+      Conquista LATAM
+      <span>estrategia militar</span>
+    </div>
+    <div class="login-sub">
+      Domina América Latina.<br>
+      Expande tu imperio, recluta y conquista.<br>
+      <span style="color:#e4ba56;font-weight:600;">¿Serás el próximo comandante supremo?</span>
+    </div>
+    <form class="login-form" id="loginForm" autocomplete="off">
+      <input type="text" id="username" maxlength="24" placeholder="Nombre de usuario" autocomplete="off" required />
+      <button type="submit" id="loginBtn">Entrar</button>
+      <small>Tu nombre será visible en el juego.</small>
+    </form>
+  </div>
+  <div class="footer">
+    © 2025 Conquista LATAM &nbsp;·&nbsp; Estrategia de guerra multijugador
+  </div>
+  <div id="gameArea" style="display:none"></div>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="main.js"></script>
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const username = document.getElementById('username').value.trim();
+      if (username.length < 2) {
+        document.getElementById('username').focus();
+        return;
+      }
+      localStorage.setItem('rr-username', username);
+      document.querySelector('.login-container').style.display = 'none';
+      document.querySelector('.bg-image').style.display = 'none';
+      document.querySelector('.overlay').style.display = 'none';
+      document.getElementById('gameArea').style.display = 'block';
+      if (typeof showGame === "function") showGame();
+    });
+    function logout() {
+      localStorage.removeItem('rr-username');
+      document.getElementById('gameArea').style.display = 'none';
+      document.querySelector('.login-container').style.display = 'flex';
+      document.querySelector('.bg-image').style.display = '';
+      document.querySelector('.overlay').style.display = '';
+    }
+    window.onload = function() {
+      if (localStorage.getItem('rr-username')) {
+        document.querySelector('.login-container').style.display = 'none';
+        document.querySelector('.bg-image').style.display = 'none';
+        document.querySelector('.overlay').style.display = 'none';
+        document.getElementById('gameArea').style.display = 'block';
+        if (typeof showGame === "function") showGame();
+      }
+    }
+  </script>
+</body>
+</html>
