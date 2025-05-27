@@ -114,6 +114,16 @@ function renderMapa() {
     }
     pais.onclick = (e) => seleccionarRegion(id, e);
     pais.style.cursor = "pointer";
+
+    // --- MENÚ CONTEXTUAL MODERNO (click derecho) ---
+    if (!pais._ctxMenuListenerAdded) {
+      pais.addEventListener('contextmenu', function(evt) {
+        evt.preventDefault();
+        mostrarMenuPaisContextual(id, evt);
+      });
+      pais._ctxMenuListenerAdded = true;
+    }
+    // --- FIN MENÚ CONTEXTUAL MODERNO ---
   });
 }
 let regionActiva = null;
@@ -271,3 +281,43 @@ function setupPerfilFoto() {
     }
   };
 }
+
+// =============== MENÚ CONTEXTUAL MODERNO (click derecho) ===============
+function mostrarMenuPaisContextual(paisId, evt) {
+  let menu = document.getElementById('menuPais');
+  if (menu) menu.remove();
+  menu = document.createElement('div');
+  menu.id = 'menuPais';
+  menu.style.position = 'absolute';
+  menu.style.background = '#fff';
+  menu.style.border = '1px solid #222';
+  menu.style.borderRadius = '7px';
+  menu.style.boxShadow = '0 4px 14px #0002';
+  menu.style.padding = '1em';
+  menu.style.zIndex = 1000;
+  menu.style.minWidth = '180px';
+  menu.style.left = (evt.clientX + 10) + 'px';
+  menu.style.top = (evt.clientY + 10) + 'px';
+  menu.innerHTML = `
+    <h4 style="margin:0 0 0.7em 0;font-size:1.2em;text-align:center;">
+      ${nombrePais(paisId)}
+    </h4>
+    <button onclick="alert('Ver información de ${nombrePais(paisId)}')">Ver información</button>
+    <button onclick="alert('Atacar país: ${nombrePais(paisId)}')">Atacar país</button>
+    <button onclick="cerrarMenuPais()">Cerrar</button>
+  `;
+  document.body.appendChild(menu);
+  setTimeout(() => {
+    document.addEventListener('click', cerrarMenuPaisClickFuera, { once: true });
+  }, 10);
+}
+
+function cerrarMenuPais() {
+  let menu = document.getElementById('menuPais');
+  if (menu) menu.remove();
+}
+function cerrarMenuPaisClickFuera(e) {
+  let menu = document.getElementById('menuPais');
+  if (menu && !menu.contains(e.target)) menu.remove();
+}
+window.cerrarMenuPais = cerrarMenuPais;

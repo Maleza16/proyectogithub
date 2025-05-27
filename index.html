@@ -6,6 +6,50 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://fonts.googleapis.com/css?family=Montserrat:700,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <style>
+    svg {
+      width: 80vw;
+      height: 80vh;
+      border: 1px solid #333;
+      background: #f9f9f9;
+    }
+    svg path {
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    svg path:hover {
+      opacity: 0.85;
+      stroke: #000;
+      stroke-width: 2px;
+    }
+    #menuPais {
+      display: none;
+      position: absolute;
+      background: #fff;
+      border: 1px solid #222;
+      border-radius: 7px;
+      box-shadow: 0 4px 14px #0002;
+      padding: 1em;
+      z-index: 1000;
+      min-width: 180px;
+    }
+    #menuPais h4 {
+      margin: 0 0 0.7em 0;
+      font-size: 1.2em;
+      text-align: center;
+    }
+    #menuPais button {
+      width: 100%;
+      margin: 0.3em 0;
+      padding: 0.4em;
+      border: none;
+      border-radius: 3px;
+      background: #e4ba56;
+      color: #222;
+      font-weight: bold;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
   <div class="bg-image"></div>
@@ -30,10 +74,23 @@
   <div class="footer">
     © 2025 Conquista LATAM &nbsp;·&nbsp; Estrategia de guerra multijugador
   </div>
-  <div id="gameArea" style="display:none"></div>
-  <script src="/socket.io/socket.io.js"></script>
-  <script src="main.js"></script>
+  <div id="gameArea" style="display:none;">
+    <!-- Aquí tu SVG del mapa (ejemplo de 3 países) -->
+    <svg id="svg-mapa" viewBox="0 0 500 500">
+      <path id="AR" data-nombre="Argentina" d="M 100 400 Q 130 350 160 400 Q 190 450 160 500 Q 130 550 100 500 Q 70 450 100 400 Z"></path>
+      <path id="BR" data-nombre="Brasil" d="M 300 200 Q 350 150 400 200 Q 450 250 400 300 Q 350 350 300 300 Q 250 250 300 200 Z"></path>
+      <path id="CL" data-nombre="Chile" d="M 200 450 Q 210 440 220 450 Q 230 460 220 470 Q 210 480 200 470 Q 190 460 200 450 Z"></path>
+      <!-- ...agrega aquí todos tus países, usando el id ISO y data-nombre -->
+    </svg>
+    <div id="menuPais">
+      <h4 id="menuPaisTitulo"></h4>
+      <button onclick="alert('Ver información');">Ver información</button>
+      <button onclick="alert('Atacar país');">Atacar país</button>
+      <button onclick="cerrarMenuPais()">Cerrar</button>
+    </div>
+  </div>
   <script>
+    // LOGIN Y CONTROL DE ÁREAS
     document.getElementById('loginForm').addEventListener('submit', function(e) {
       e.preventDefault();
       const username = document.getElementById('username').value.trim();
@@ -47,6 +104,7 @@
       document.querySelector('.overlay').style.display = 'none';
       document.getElementById('gameArea').style.display = 'block';
       if (typeof showGame === "function") showGame();
+      iniciarListenersSVG();
     });
     function logout() {
       localStorage.removeItem('rr-username');
@@ -62,8 +120,44 @@
         document.querySelector('.overlay').style.display = 'none';
         document.getElementById('gameArea').style.display = 'block';
         if (typeof showGame === "function") showGame();
+        iniciarListenersSVG();
       }
     }
+    // MENÚ CONTEXTUAL
+    function iniciarListenersSVG() {
+      // Elimina listeners previos
+      document.querySelectorAll('#svg-mapa path').forEach(function(path) {
+        let nuevo = path.cloneNode(true);
+        path.parentNode.replaceChild(nuevo, path);
+      });
+      // Agrega listeners a cada país
+      document.querySelectorAll('#svg-mapa path').forEach(function(path) {
+        path.addEventListener('click', function(evt) {
+          evt.stopPropagation();
+          const nombre = this.getAttribute('data-nombre') || this.id;
+          const menu = document.getElementById('menuPais');
+          const titulo = document.getElementById('menuPaisTitulo');
+          titulo.textContent = nombre;
+          menu.style.left = evt.clientX + 10 + 'px';
+          menu.style.top = evt.clientY + 10 + 'px';
+          menu.style.display = 'block';
+        });
+      });
+    }
+    // Cerrar el menú al hacer click afuera
+    document.addEventListener('click', function(e) {
+      const menu = document.getElementById('menuPais');
+      if (menu.style.display === 'block' && !menu.contains(e.target)) {
+        menu.style.display = 'none';
+      }
+    });
+    // Cerrar desde botón
+    function cerrarMenuPais() {
+      document.getElementById('menuPais').style.display = 'none';
+    }
+    window.cerrarMenuPais = cerrarMenuPais;
+    // Si el SVG se actualiza dinámicamente, llama a iniciarListenersSVG después
+    document.addEventListener('DOMContentLoaded', iniciarListenersSVG);
   </script>
 </body>
 </html>
